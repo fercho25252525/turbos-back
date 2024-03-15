@@ -3,9 +3,12 @@ package co.com.turbos.parser;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import co.com.turbos.entity.Role;
 import co.com.turbos.request.RoleRequest;
 
+@Service
 public class RoleParser { 
 
 	public static List<Role> buildRole(List<RoleRequest> entity, String key) {
