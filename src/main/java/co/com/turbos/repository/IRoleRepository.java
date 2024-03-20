@@ -6,5 +6,5 @@ import co.com.turbos.entity.Role;
 
 public interface IRoleRepository extends JpaRepository<Role, Long>{
 	
-	
+	Role findByName(String name);
 }

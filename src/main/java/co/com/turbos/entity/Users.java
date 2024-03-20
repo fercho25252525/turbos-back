@@ -72,12 +72,11 @@ public class Users implements Serializable {
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"user_id", "role_id"})})
 	private List<Role> role;
 	
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//	@JoinTable(name="users_roles", joinColumns= @JoinColumn(name="user_id"),
-//	inverseJoinColumns=@JoinColumn(name="role_id"),
-//	uniqueConstraints= {@UniqueConstraint(columnNames= {"user_id", "role_id"})})
-//	private List<Role> roles;
 	
+	//Datos customer	
+	private String phone;
+	
+	private String address;
+
 	private static final long serialVersionUID = 1L;
 }

@@ -14,7 +14,7 @@ import co.com.turbos.response.ResponseEvent;
 
 public interface IUserService {	
 	
-	ResponseEvent<List<UserRequest>> getUsers();
+	ResponseEvent<List<UserRequest>> getUsers();	
 	
 	ResponseEvent<UserRequest> addUsers(CommandEvent<UserRequest> requestEvent);
 	

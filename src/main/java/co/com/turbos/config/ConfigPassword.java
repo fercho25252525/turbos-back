@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import co.com.turbos.request.UserRequest;
-
 @Component
 public class ConfigPassword {
 
@@ -17,7 +15,7 @@ public class ConfigPassword {
 	}
 
 
-	public String generateassword(UserRequest requestEvent) {
-		return passwordEncoder.encode(requestEvent.getDocumentNumber() + "-" + LocalDate.now().getYear());
+	public String generateassword(String documentNumber) {
+		return passwordEncoder.encode(documentNumber + "-" + LocalDate.now().getYear());
 	}	
 }

@@ -38,7 +38,7 @@ public class UserController {
 	public UserController(IUserService iUserService) {
 		this.iUserService = iUserService;
 	}	
-	
+	 
 	@GetMapping(value = "getUsers")
 	public ResponseEntity<ResponseEvent<List<UserRequest>>> getUser() {
 		final ResponseEvent<List<UserRequest>> responseEvent = this.iUserService.getUsers();

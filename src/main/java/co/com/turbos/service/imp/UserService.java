@@ -85,11 +85,11 @@ public class UserService implements IUserService, UserDetailsService {
 		return this.usuarioRepository.findByUserName(username);
 	}
 
-	@Override
+	@Override 
 	@Transactional(readOnly = true)
 	public ResponseEvent<List<UserRequest>> getUsers() {
 		try {
-			List<Users> usersList = this.usuarioRepository.findAll();
+			List<Users> usersList = this.usuarioRepository.findUsersNotCustomer();
 			if (usersList.isEmpty() || Objects.isNull(usersList)) {
 				return new ResponseEvent<List<UserRequest>>().ok("No existen usuarios.", null);
 			}
@@ -103,6 +103,7 @@ public class UserService implements IUserService, UserDetailsService {
 			return new ResponseEvent<List<UserRequest>>().applicationError("Ocurrio un error al obtener los usuarios.");
 		}
 	}
+	
 
 	@Override
 	@Transactional(readOnly = false)
@@ -117,7 +118,7 @@ public class UserService implements IUserService, UserDetailsService {
 			return new ResponseEvent<UserRequest>().badRequest("Correo, usuario o Rol vacio.");
 		}
 
-		if (Boolean.TRUE.equals(validateUserExist(requestEvent.getRequest()))) {
+		if (Boolean.TRUE.equals(this.userParser.validateUserExist(requestEvent.getRequest().getUserName(), requestEvent.getRequest().getEmail()))) {
 			return new ResponseEvent<UserRequest>().badRequest("El usuario ya existe.");
 		}
 
@@ -138,7 +139,7 @@ public class UserService implements IUserService, UserDetailsService {
 			return new ResponseEvent<UserRequest>().badRequest("Correo o usuario vacio.");
 		}
 
-		if (Boolean.TRUE.equals(validateUserExist(requestEvent.getRequest()))) {
+		if (Boolean.TRUE.equals(this.userParser.validateUserExist(requestEvent.getRequest().getUserName(), requestEvent.getRequest().getEmail()))) {
 			Optional<Users> userOpt = this.usuarioRepository.findById(requestEvent.getRequest().getUserName());
 			Users userUpdate = this.userParser.buildEditUser(requestEvent.getRequest(), userOpt.get().getCreatedAt(),
 					userOpt.get().getPassword(), userOpt.get().getPhoto());
@@ -162,7 +163,7 @@ public class UserService implements IUserService, UserDetailsService {
 			return new ResponseEvent<Boolean>().badRequest("Correo o usuario vacio.");
 		}
 
-		if (Boolean.FALSE.equals(validateUserExist(requestEvent.getRequest()))) {
+		if (Boolean.FALSE.equals(this.userParser.validateUserExist(requestEvent.getRequest().getUserName(), requestEvent.getRequest().getEmail()))) {
 			return new ResponseEvent<Boolean>().badRequest("El usuario no existe.");
 		}
 
@@ -170,15 +171,7 @@ public class UserService implements IUserService, UserDetailsService {
 		return new ResponseEvent<Boolean>().noContent("Usuario eliminado.", null);
 	}
 
-	private Boolean validateUserExist(UserRequest userRequest) {
-		List<Users> existUser = this.usuarioRepository.findByUserNameOrEmail(userRequest.getUserName(),
-				userRequest.getEmail());
-		if (!existUser.isEmpty()) {
-			return Boolean.TRUE;
-		}
 
-		return Boolean.FALSE;
-	}
 
 	@Override
 	public ResponseEvent<List<RoleRequest>> getRole() {
@@ -280,5 +273,4 @@ public class UserService implements IUserService, UserDetailsService {
 			return new SendImageRequest();
 		}
 	}
-
 }

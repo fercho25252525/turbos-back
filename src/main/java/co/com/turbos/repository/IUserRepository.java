@@ -12,6 +12,12 @@ import co.com.turbos.entity.Users;
 
 @Repository
 public interface IUserRepository extends JpaRepository<Users, String> {
+	
+	@Query("SELECT u FROM Users u JOIN u.role r WHERE r.name <> 'ROLE_CUSTOMER'")
+    List<Users> findUsersNotCustomer();
+	
+	@Query("SELECT u FROM Users u JOIN u.role r WHERE r.name = 'ROLE_CUSTOMER'")
+    List<Users> findUsersCustomer();
 
 	Users findByUserName(String userName);
 	
