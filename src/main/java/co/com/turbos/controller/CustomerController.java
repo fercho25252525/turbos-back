@@ -13,24 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.turbos.request.CustomerRequest;
-import co.com.turbos.request.UserRequest;
 import co.com.turbos.response.CommandEvent;
 import co.com.turbos.response.ResponseEntityUtility;
 import co.com.turbos.response.ResponseEvent;
 import co.com.turbos.service.ICustomerService;
-import co.com.turbos.service.IUserService;
 
 @RestController
 @RequestMapping("/api/customerController/v1/")
 public class CustomerController {
 	
-	private IUserService iUserService;
 	
 	private ICustomerService iCustomerService;
 	
 	@Autowired
-	public CustomerController(IUserService iUserService, ICustomerService iCustomerService) {
-		this.iUserService = iUserService;
+	public CustomerController(ICustomerService iCustomerService) {
 		this.iCustomerService = iCustomerService;
 	}	
 	 

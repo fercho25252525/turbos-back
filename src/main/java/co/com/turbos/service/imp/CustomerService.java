@@ -11,7 +11,6 @@ import co.com.turbos.entity.Users;
 import co.com.turbos.parser.UserParser;
 import co.com.turbos.repository.IUserRepository;
 import co.com.turbos.request.CustomerRequest;
-import co.com.turbos.request.UserRequest;
 import co.com.turbos.response.CommandEvent;
 import co.com.turbos.response.ResponseEvent;
 import co.com.turbos.service.ICustomerService;
@@ -81,9 +80,6 @@ public class CustomerService implements ICustomerService {
 			return new ResponseEvent<CustomerRequest>().badRequest("Correo o usuario vacio.");
 		}
 		
-		log.info(requestEvent.getRequest()+"");
-		
-		log.info(requestEvent.getRequest().getUserName()+"");
 
 		if (Boolean.TRUE.equals(this.userParser.validateUserExist(requestEvent.getRequest().getUserName(), requestEvent.getRequest().getEmail()))) {
 			Optional<Users> userOpt = this.usuarioRepository.findById(requestEvent.getRequest().getUserName());
