@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -81,6 +82,16 @@ public class UserParser {
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
+	}
+	
+	public Optional<Users> userByUserNameOrEmail(String userName, String email) {
+		List<Users> user = this.usuarioRepository.findByUserNameOrEmail(userName,
+				email);
+		if (!user.isEmpty()) {
+			return Optional.of(user.get(0));
+		}
+		
+		return Optional.empty();
 	}
 	
 

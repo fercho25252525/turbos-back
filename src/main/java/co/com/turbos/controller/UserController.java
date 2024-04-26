@@ -96,4 +96,10 @@ public class UserController {
 
         return new ResponseEntity<>(imageRequest.getResource(), imageRequest.getHeaders(), HttpStatus.OK);
     }
+    
+    @GetMapping(value = "getMecanic")
+	public ResponseEntity<ResponseEvent<List<UserRequest>>> getMecanic() {
+		final ResponseEvent<List<UserRequest>> responseEvent = this.iUserService.getMecanic();
+		return ResponseEntityUtility.buildHttpResponse(responseEvent);
+	}
 }

@@ -273,4 +273,24 @@ public class UserService implements IUserService, UserDetailsService {
 			return new SendImageRequest();
 		}
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public ResponseEvent<List<UserRequest>> getMecanic() {
+			try {
+			List<Users> usersList = this.usuarioRepository.findUsersMecanic();
+			if (usersList.isEmpty() || Objects.isNull(usersList)) {
+				return new ResponseEvent<List<UserRequest>>().ok("No existen mecanicos.", null);
+			}
+
+			List<UserRequest> requestList = new ArrayList<>();
+			usersList.forEach(user -> requestList.add(this.userParser.buildUser(user)));
+
+			return new ResponseEvent<List<UserRequest>>().ok("Success", requestList);
+		} catch (Exception e) {
+			log.error("Ocurrio un error al obtener los mecanicos: " + e);
+			return new ResponseEvent<List<UserRequest>>().applicationError("Ocurrio un error al obtener los mecanicos.");
+		}
+	}
+	
 }

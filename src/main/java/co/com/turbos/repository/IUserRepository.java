@@ -18,6 +18,10 @@ public interface IUserRepository extends JpaRepository<Users, String> {
 	
 	@Query("SELECT u FROM Users u JOIN u.role r WHERE r.name = 'ROLE_CUSTOMER'")
     List<Users> findUsersCustomer();
+	
+	
+	@Query("SELECT u FROM Users u JOIN u.role r WHERE r.name = 'ROLE_MECANIC'")
+    List<Users> findUsersMecanic();
 
 	Users findByUserName(String userName);
 	

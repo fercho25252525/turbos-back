@@ -28,5 +28,7 @@ public interface IUserService {
 
 	ResponseEvent<String> uploadImage(MultipartFile file, String username) throws IOException;
 	
-	SendImageRequest sendImage(String userName) throws IOException ;
+	SendImageRequest sendImage(String userName) throws IOException;
+	
+	ResponseEvent<List<UserRequest>> getMecanic();
 }
