@@ -81,12 +81,19 @@ public class VehicleService implements IVehicleService {
 			return new ResponseEvent<Vehicle>().badRequest("El cliente no existe.");
 		}
 
-		Vehicle vehicle = Vehicle.builder().plate(requestEvent.getRequest().getPlate())
-				.brand(requestEvent.getRequest().getBrand()).line(requestEvent.getRequest().getLine())
-				.model(requestEvent.getRequest().getModel()).typeVehicle(requestEvent.getRequest().getTypeVehicle())
-				.typeFuels(requestEvent.getRequest().getTypeFuels()).status(requestEvent.getRequest().getStatus())
-				.color(requestEvent.getRequest().getColor()).registerDate(vehicleOpt.get().getRegisterDate())
-				.nextMaintenanceDate(requestEvent.getRequest().getNextMaintenanceDate()).customer(userOpt.get())
+		Vehicle vehicle = Vehicle.builder()
+				.plate(requestEvent.getRequest().getPlate())
+				.brand(requestEvent.getRequest().getBrand())
+				.city(requestEvent.getRequest().getCity())
+				.line(requestEvent.getRequest().getLine())
+				.model(requestEvent.getRequest().getModel())
+				.typeVehicle(requestEvent.getRequest().getTypeVehicle())				
+				.typeFuels(requestEvent.getRequest().getTypeFuels())
+				.status(requestEvent.getRequest().getStatus())
+				.color(requestEvent.getRequest().getColor())
+				.registerDate(vehicleOpt.get().getRegisterDate())
+				.nextMaintenanceDate(requestEvent.getRequest().getNextMaintenanceDate())
+				.customer(userOpt.get())
 				.build();
 
 		Vehicle vehicleResponse = iVehicleRepository.save(vehicle);

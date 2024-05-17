@@ -1,8 +1,5 @@
 package co.com.turbos.entity;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -19,31 +15,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "WORK_ORDER")
+@Table(name = "PQRS")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkOrder {
-	
+public class Pqrs {
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idOrder;
-	private String statusOrder;
-	private Double estimatedCost;
-	private Double realCost;
-	private String startDate;
-	private String endDate;
-	private Date creationDate;	
-	private String comments;
-	
-	@OneToMany(mappedBy = "workOrder", fetch = FetchType.EAGER)
-	private List<WorkDescription> workDescription;
+	private Long idPqrs;
+	private String typePqrs;
+	private String datePqrs;
+	private String status;
+	private String priority;
+	private String description;
+	private String response;
+	private long view;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "vehicle_id")
-	private Vehicle vehicle;
-	
-	
-
+	@JoinColumn(name = "user_id")
+	private Users user;
 }

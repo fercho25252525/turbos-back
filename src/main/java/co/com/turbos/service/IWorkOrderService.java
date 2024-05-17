@@ -10,6 +10,8 @@ import co.com.turbos.response.ResponseEvent;
 public interface IWorkOrderService {
 
 	ResponseEvent<List<WorkOrder>> getWorkOrder();
+	
+	ResponseEvent<List<WorkOrder>> getWorkOrderByQuery(String query);
 
 	ResponseEvent<WorkOrder> addWorkOrder(CommandEvent<WorkOrder> requestEvent);
 
